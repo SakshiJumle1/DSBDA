@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+
+df = pd.read_csv("heart.csv" , encoding="ISO-8859-1")
+df
+
+######################## data cleaning ###########################
+print(df.isnull().sum())
+df.dropna(inplace=True)
+df.drop_duplicates(inplace=True)
+print(df.dtypes)
+
+##################### Data Integration #########################
+df['age_hr_ratio'] = df['thalach'] / df['age']
+df
+
+############################# #Data Transformation #####################3333
+df['sex'] = df['sex'].map({1: 'male', 0: 'female'})
+df = pd.get_dummies(df, drop_first=True)
+df
+scaler = StandardScaler()
+scaled_features = scaler.fit_transform(df.drop('target', axis=1))
+df_scaled = pd.DataFrame(scaled_features, columns=df.columns[:-1])
+df_scaled['target'] = df['target']
+
+
+############## Error Correction ###########################3
+print(df[(df['age'] < 0) | (df['age'] > 100)])
+df = df[(df['age'] >= 0) & (df['age'] <= 100)]
+df
+
+
+################## Data Model Building ##################3
+df_scaled = df_scaled[df_scaled['target'].notna()]
+X = df_scaled.drop('target', axis=1)
+y = df_scaled['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
