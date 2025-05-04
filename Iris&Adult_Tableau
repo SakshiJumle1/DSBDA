@@ -1,0 +1,20 @@
+a. 1D (Linear) Data Visualization
+Iris: Plot a histogram of PetalLengthCm to see its distribution.
+Adult:
+Plot a bar chart of education or income to show frequency.
+
+b. 2D (Planar) Data Visualization
+Iris:Use a scatter plot of SepalLengthCm vs SepalWidthCm, colored by Species.
+Adult:Plot hours.per.week vs age, colored by income.
+
+c. 3D (Volumetric) Data Visualization
+Iris:X-axis: PetalLengthCm, Y-axis: PetalWidthCm, Size or Color: SepalLengthCm, colored by Species.
+Adult:X: age, Y: hours.per.week, Color: education.num, colored by income.
+
+e. Multidimensional Data Visualization
+Iris:Use a scatter matrix or dashboard showing pairwise plots.
+Adult:Combine age, hours, income, education, and occupation in a scatter plot with color, shape, and size encoding.
+
+f. Tree/Hierarchical Data Visualization
+Adult:Use Tree Map for native.country > occupation > income.
+Iris:Create a synthetic hierarchy: Species > PetalLengthCm Range.
