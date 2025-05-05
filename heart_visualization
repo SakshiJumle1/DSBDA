@@ -1,45 +1,50 @@
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-df = pd.read_csv("heart.csv")
-df
-sns.set(style="whitegrid")
-  #Age Distribution
-plt.figure(figsize=(8, 5))
-sns.histplot(df['Age'], bins=20, kde=True, color='skyblue')
+
+# Load the dataset
+df = pd.read_csv("your_dataset.csv")  # Replace with your actual file path
+
+# Drop 'Unnamed: 0' if it's just an index column
+if 'Unnamed: 0' in df.columns:
+    df.drop(columns=['Unnamed: 0'], inplace=True)
+
+# ----- 1. BOX PLOT -----
+plt.figure(figsize=(12, 6))
+sns.boxplot(data=df[['Age', 'RestBP', 'Chol', 'MaxHR', 'Oldpeak']])
+plt.title('Boxplot of Numerical Features')
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.show()
+
+# ----- 2. HISTOGRAM -----
+plt.figure(figsize=(10, 6))
+sns.histplot(df['Age'], kde=True, bins=20, color='skyblue')
 plt.title('Age Distribution')
 plt.xlabel('Age')
-plt.ylabel('Count')
+plt.ylabel('Frequency')
+plt.grid(True)
 plt.show()
-  # Sex Countplot
-plt.figure(figsize=(6, 4))
-sns.countplot(x='Sex', data=df, palette='Set2')
-plt.title('Sex Distribution')
+
+# ----- 3. SINGLE LINE GRAPH -----
+# Plot Age vs MaxHR (just an example trend)
+plt.figure(figsize=(10, 6))
+plt.plot(df['Age'], df['MaxHR'], marker='o', linestyle='-', color='green')
+plt.title('Max Heart Rate by Age')
+plt.xlabel('Age')
+plt.ylabel('MaxHR')
+plt.grid(True)
 plt.show()
-  #Chest Pain Type vs AHD (Heart Disease)
-plt.figure(figsize=(8, 5))
-sns.countplot(x='ChestPain', hue='AHD', data=df, palette='coolwarm')
-plt.title('Chest Pain Type vs Heart Disease')
-plt.show()
-  #Resting Blood Pressure by Age
-plt.figure(figsize=(8, 5))
-sns.scatterplot(x='Age', y='RestBP', hue='AHD', data=df, palette='viridis')
-plt.title('Resting Blood Pressure by Age')
-plt.show()
-  #Max Heart Rate by Sex
-plt.figure(figsize=(8, 5))
-sns.boxplot(x='Sex', y='MaxHR', data=df, palette='Set3')
-plt.title('Max Heart Rate by Sex')
-plt.show()
-  #Correlation Heatmap
-plt.figure(figsize=(12, 8))
-corr = df.corr(numeric_only=True)
-sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f")
-plt.title('Correlation Heatmap')
-plt.show()
-  #Pairplot for selected features
-selected_features = ['Age', 'RestBP', 'Chol', 'MaxHR', 'Oldpeak']
-sns.pairplot(df[selected_features + ['AHD']], hue='AHD', palette='husl')
-plt.suptitle('Pairplot of Selected Features', y=1.02)
+
+# ----- 4. MULTIPLE LINE GRAPH -----
+# Plot Age vs RestBP, Chol, MaxHR
+plt.figure(figsize=(12, 6))
+plt.plot(df['Age'], df['RestBP'], label='RestBP', color='blue')
+plt.plot(df['Age'], df['Chol'], label='Chol', color='red')
+plt.plot(df['Age'], df['MaxHR'], label='MaxHR', color='green')
+plt.title('Comparison of RestBP, Chol, and MaxHR by Age')
+plt.xlabel('Age')
+plt.ylabel('Values')
+plt.legend()
+plt.grid(True)
 plt.show()
