@@ -1,0 +1,38 @@
+  import pandas as pd
+import numpy as np
+
+# Load dataset
+df = pd.read_csv("Downloads/amazon_book_reviews.csv")
+print(df.head())
+print(df.shape)
+
+###################### 1. Create data subsets (Row-wise only)
+# Selecting rows only (all columns retained)
+row_subset1 = df.loc[0:10]    # First 11 rows
+row_subset2 = df.loc[11:20]   # Next 10 rows
+row_subset3 = df.loc[21:30]   # Next 10 rows
+
+print(row_subset1)
+print(row_subset2)
+print(row_subset3)
+
+###################### 2. Merge Data (Row-wise)
+# Combine row subsets vertically
+merged_rows = pd.concat([row_subset1, row_subset2, row_subset3], axis=0)
+print(merged_rows)
+
+###################### 3. Sort Rows by a Column (e.g., 'overall')
+# Sort rows based on values in a specific column
+sorted_rows = df.sort_values(by='overall')  # ascending by rating
+print(sorted_rows.head())
+
+###################### 4. Transpose → Columns become rows (matrix-style flip)
+# Use transpose to convert rows to columns and vice versa
+transposed_rows = df.head(5).T  # Only transpose first 5 rows to keep output readable
+print(transposed_rows)
+
+###################### 5. Reshape Rows using Numpy
+# Convert selected rows to numpy array and reshape
+row_data = np.array(df.loc[0:5, 'overall'])  # Get 'overall' values of first 6 rows
+reshaped_rows = row_data.reshape(3, 2)       # 3 rows, 2 columns
+print(reshaped_rows)
