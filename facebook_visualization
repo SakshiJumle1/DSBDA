@@ -1,0 +1,41 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the Facebook metrics dataset
+df = pd.read_csv('facebook_metrics.csv')
+
+# Optional: display the first few rows
+print(df.head())
+
+plt.figure(figsize=(8, 5))
+sns.boxplot(x='Type', y='Lifetime Post Total Reach', data=df)
+plt.title('Box Plot of Reach by Post Type')
+plt.ylabel('Total Reach')
+plt.xlabel('Post Type')
+plt.show()
+
+plt.figure(figsize=(8, 5))
+plt.hist(df['Lifetime Post Total Impressions'].dropna(), bins=30, color='skyblue', edgecolor='black')
+plt.title('Histogram of Post Impressions')
+plt.xlabel('Impressions')
+plt.ylabel('Frequency')
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.plot(df['Lifetime Post Total Reach'], color='purple')
+plt.title('Single Line Graph - Lifetime Post Total Reach')
+plt.xlabel('Index')
+plt.ylabel('Total Reach')
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.plot(df['Lifetime Post Total Reach'], label='Reach', color='blue')
+plt.plot(df['Lifetime Post Total Impressions'], label='Impressions', color='green')
+plt.title('Multiple Line Graph - Reach vs Impressions')
+plt.xlabel('Index')
+plt.ylabel('Value')
+plt.legend()
+plt.grid(True)
+plt.show()
