@@ -1,0 +1,67 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+
+# Load dataset
+iris = pd.read_csv('Iris.csv')
+
+# ========== a. 1D (Linear) Data Visualization ==========
+
+# Histogram
+iris[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']].hist(bins=15, figsize=(10,6))
+plt.suptitle("1D Histogram of Iris Features")
+plt.show()
+
+# Boxplot
+plt.figure(figsize=(8,5))
+sns.boxplot(data=iris.drop(columns=['Id', 'Species']))
+plt.title("1D Boxplot of Iris Features")
+plt.xticks(rotation=45)
+plt.show()
+
+# ========== b. 2D (Planar) Data Visualization ==========
+
+# Scatter plot with hue for species
+plt.figure(figsize=(8,6))
+sns.scatterplot(data=iris, x='SepalLengthCm', y='PetalLengthCm', hue='Species')
+plt.title('2D Scatter Plot - Sepal vs Petal Length')
+plt.show()
+
+# Pairplot
+sns.pairplot(iris.drop(columns=['Id']), hue='Species')
+plt.suptitle('2D Pairwise Feature Plots', y=1.02)
+plt.show()
+
+# ========== c. 3D (Volumetric) Data Visualization ==========
+
+fig = plt.figure(figsize=(10,7))
+ax = fig.add_subplot(111, projection='3d')
+
+species = iris['Species'].unique()
+colors = {'Iris-setosa':'r', 'Iris-versicolor':'g', 'Iris-virginica':'b'}
+
+for sp in species:
+    subset = iris[iris['Species'] == sp]
+    ax.scatter(subset['SepalLengthCm'], subset['PetalLengthCm'], subset['PetalWidthCm'], 
+               label=sp, color=colors[sp], s=50)
+
+ax.set_xlabel('Sepal Length')
+ax.set_ylabel('Petal Length')
+ax.set_zlabel('Petal Width')
+ax.set_title('3D Volumetric Plot - Iris Data')
+ax.legend()
+plt.show()
+
+# ========== d. Temporal Data Visualization ==========
+
+# Simulate time using the index
+iris.set_index('Id', inplace=True)
+
+plt.figure(figsize=(10,6))
+iris[['SepalLengthCm', 'PetalLengthCm']].plot()
+plt.title('Temporal Visualization of Sepal and Petal Length')
+plt.xlabel('Sample ID (as Time)')
+plt.ylabel('Length (cm)')
+plt.grid(True)
+plt.show()
