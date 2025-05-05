@@ -1,0 +1,18 @@
+a. 1D
+SUM(sepal lenght) -> col
+species -> row
+
+b. 2D
+sepal lemgth -> col
+petal lenght -> row
+species -> color
+
+c. multi -D
+sepal_length. -> Columns:
+sepal_width -> Rows
+ Circle. (petal_width -> Size , species ->Color
+
+d. tree map
+ species -> Rows.
+petal_length -> Size.
+ sepal_width) ->  Label or Color.
