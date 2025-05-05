@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("Downloads/amazon_book_reviews.csv")
+print(df.head())  
+print(df.shape)  
+
+###################### 1. Create data subsets (Column-wise only)
+subset1 = df[['reviewerID', 'asin']]
+subset2 = df[['reviewTime', 'overall']]
+subset3 = df[['reviewText', 'summary']]
+print(subset1.head())
+print(subset2.head())
+print(subset3.head())
+
+###################### 2. Merge Data (Column-wise)
+merged_columns = pd.concat([subset1, subset2, subset3], axis=1)
+print(merged_columns.head())
+
+###################### 3. Sort Columns Alphabetically
+sorted_columns_df = df[sorted(df.columns)]
+print(sorted_columns_df.head())
+
+###################### 4. Transpose (to make columns into rows)
+transposed = df.head(3).transpose()
+print(transposed)
+
+###################### 5. Reshape Columns using Numpy (pure column-wise)
+col_array = np.array(df['overall'].head(6))  # Take 6 values from 'overall' column
+reshaped = col_array.reshape(2, 3)  # Reshape into 2 rows and 3 columns
+print(reshaped)
