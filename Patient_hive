@@ -1,0 +1,57 @@
+#create table
+CREATE TABLE patient_record (
+    patient_id INT,
+    name STRING,
+    age INT,
+    gender STRING,
+    disease STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+#load table with data
+1,John Doe,34,Male,Diabetes
+2,Jane Smith,29,Female,Hypertension
+3,Ravi Kumar,45,Male,Asthma
+
+LOAD DATA INPATH '/user/hive/patient_data.csv' INTO TABLE patient_record;
+
+#Insert New Values and Fields in the Tabl
+INSERT INTO TABLE patient_record 
+VALUES (4, 'Meena Shah', 51, 'Female', 'Arthritis');
+################ OR ####################################
+ALTER TABLE patient_record ADD COLUMNS (contact_number STRING);
+
+#join table
+CREATE TABLE hospital_details (
+    hospital_id INT,
+    patient_id INT,
+    hospital_name STRING,
+    admission_date STRING
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE;
+
+101,1,City Hospital,2024-06-01
+102,2,Green Care,2024-07-05
+103,4,Skyline Health,2024-08-10
+
+LOAD DATA INPATH '/user/hive/hospital_data.csv' INTO TABLE hospital_details;
+
+SELECT 
+    p.patient_id, 
+    p.name, 
+    p.disease, 
+    h.hospital_name, 
+    h.admission_date
+FROM 
+    patient_record p
+JOIN 
+    hospital_details h
+ON 
+    p.patient_id = h.patient_id;
+
+
+
