@@ -1,0 +1,31 @@
+a.1-D (
+SUM(cap.gain) -> row
+
+b. 2-D 
+race -> Column
+Sum(age) -> row
+
+c. Temporal
+hrs per week -> columns
+sum(capital gain)
+
+d. 3-D
+capital gain -> column
+workclass -> row
+
+circle( capital gain  -> color , hrs per week -> size)
+
+e. Tree map
+Age -> Color
+Sum(capital gain ) -> size
+native cntry -> label
+
+f.netwrok
+sanky ( native cntry -> level , occupation -> level, hra per week -> link)
+
+g. multi D
+Age -> columns
+Sum(hrs per week ) -> rows
+
+circle (sex -> color , Sum(capital gain)
+
